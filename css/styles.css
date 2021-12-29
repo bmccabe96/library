@@ -45,3 +45,19 @@ body {
     padding: 10px;
 }
 
+.btn {
+    color: white;
+    border: 2px solid rgb(61, 34, 34);
+    border-radius: 5px;
+    width: 100px;
+    padding: 2px;
+}
+
+.btn-red {
+    background-color: rgb(161, 28, 28);
+}
+
+.btn-green {
+    background-color: rgb(34, 129, 34);
+}
+

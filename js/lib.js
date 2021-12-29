@@ -1,5 +1,17 @@
 let myLibrary = [];
 
+let book1 = new MakeBook('ss','aa',22,true);
+let book2 = new MakeBook('hh','df',22);
+addBookToLibrary(book1);
+addBookToLibrary(book2);
+displayBooks();
+/*
+FOR TESTING IN CONSOLE
+let book3 = new MakeBook('aaaaa','sssss',22);
+addBookToLibrary(book3);
+displayBooks();
+*/
+
 
 /* 
 Constructor for book objects w/prototype method(s)
@@ -29,9 +41,20 @@ Function to display books on the page
 function displayBooks() {
     const bookshelf = document.querySelector(".bookshelf");
     removeAllChildNodes(bookshelf);
-    myLibrary.forEach(book => {
-        let bookItem = document.createElement("div");
+    myLibrary.forEach((book, index) => {
+        bookItem = createBookHtml(book, index);
+        bookshelf.appendChild(bookItem);
+    });
+    initializeReadButtons();
+}
+
+/*
+Function to create book html
+*/
+function createBookHtml(book, index) {
+    let bookItem = document.createElement("div");
         bookItem.className = "book";
+        bookItem.dataset.index = index;
         let title = document.createElement("p");
         title.textContent = book.title;
         let author = document.createElement("p");
@@ -52,9 +75,7 @@ function displayBooks() {
         bookItem.appendChild(author);
         bookItem.appendChild(pages);
         bookItem.appendChild(read);
-        
-        bookshelf.appendChild(bookItem);
-    })
+    return bookItem;
 }
 
 /*
@@ -66,8 +87,26 @@ function removeAllChildNodes(parent) {
     }
 }
 
-let book1 = new MakeBook('ss','aa',22,true);
-let book2 = new MakeBook('hh','df',22);
-addBookToLibrary(book1);
-addBookToLibrary(book2);
-displayBooks();
+
+/*
+Event listener for bookItems
+1) Read/Unread flipping
+2) Removal
+*/
+function initializeReadButtons() {
+    let bookReadButtons = document.querySelectorAll('.btn');
+    bookReadButtons.forEach(read => {
+        read.addEventListener("click", () => {
+            if(read.className === "btn btn-green"){
+                myLibrary[read.parentNode.dataset.index].isRead = false;
+                displayBooks();
+            } else {
+                myLibrary[read.parentNode.dataset.index].isRead = true;
+                displayBooks();
+            }
+        });
+    });
+}
+
+
+
