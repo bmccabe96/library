@@ -113,23 +113,38 @@ function initializeReadButtons() {
 
 
 // Get the modal
-let modal = document.getElementById("myModal");
+const modal = document.getElementById("myModal");
 // Get the button that opens the modal
-let addBookBtn = document.getElementById("add-btn");
-// Get the <span> element that closes the modal
-let span = document.getElementsByClassName("close")[0];
+const addBookBtn = document.getElementById("add-btn");
 // When the user clicks on the button, open the modal
-addBookBtn.onclick = function() {
-  modal.style.display = "block";
-  let submit = document.querySelector("#submit-book");
-  submit.addEventListener("click", () => {
-      let newBook = getBookFromInput();
-      console.log(newBook);
-      addBookToLibrary(newBook);
-      modal.style.display = "none";
-      displayBooks();
-  });
-}
+addBookBtn.addEventListener("click", () => {
+    modal.style.display = "block";
+  });  
+// Get the <span> element that closes the modal
+const span = document.getElementsByClassName("close")[0];
+//Get form
+const addBookForm = document.querySelector("#add-book-form");
+/*
+Prevent form from refreshing window on submit
+Also add event listener for storing form results
+*/
+function handleForm(event) { event.preventDefault(); } 
+addBookForm.addEventListener('submit', handleForm);
+addBookForm.addEventListener("submit", () => {
+    let newBook = getBookFromInput();
+    console.log(newBook);
+    addBookToLibrary(newBook);
+    modal.style.display = "none";
+    addBookForm.reset();
+    displayBooks();
+});
+
+
+
+
+
+
+
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
   modal.style.display = "none";
@@ -149,12 +164,7 @@ const getBookFromInput = () => {
     const author = document.getElementById('author').value;
     const pages = document.getElementById('pages').value;
     const isRead = document.getElementById('is-read').checked;
-    return new MakeBook(title, author, pages, isRead)
+    return new MakeBook(title, author, pages, isRead);
 };
 
-/*
-Prevent form from refreshing window on submit
-*/
-let form = document.getElementById("add-book-form");
-function handleForm(event) { event.preventDefault(); } 
-form.addEventListener('submit', handleForm);
+
