@@ -1,17 +1,15 @@
 let myLibrary = [];
 
-let book1 = new MakeBook('ss','aa',22,true);
-let book2 = new MakeBook('hh','df',22);
+
+//Add a couple books just to have it prepopulated. 
+//When I learn how to build login/authentication and how to hook up to a DB, I can add that portion
+let book1 = new MakeBook('The Fellowship of the Ring','JRR Tolkien',400,true);
+let book2 = new MakeBook('The Lion, the Witch, and the Wardrobe','CS Lewis',300,true);
+let book3 = new MakeBook('Game of Thrones', 'George RR Martin', 350);
 addBookToLibrary(book1);
 addBookToLibrary(book2);
-displayBooks();
-/*
-FOR TESTING IN CONSOLE
-let book3 = new MakeBook('aaaaa','sssss',22);
 addBookToLibrary(book3);
 displayBooks();
-*/
-
 
 /* 
 Constructor for book objects w/prototype method(s)
@@ -22,7 +20,6 @@ function MakeBook(title, author, pages, isRead=false) {
     this.pages = pages;
     this.isRead = isRead;
 }
-
 MakeBook.prototype.info = function () {
     return `${this.title} by ${this.author}, ${this.pages} pages, ${this.isRead === false ? 'not read yet' : 'already read'}`;
 };
@@ -46,6 +43,7 @@ function displayBooks() {
         bookshelf.appendChild(bookItem);
     });
     initializeReadButtons();
+    initializeRemoveButtons();
 }
 
 /*
@@ -55,12 +53,24 @@ function createBookHtml(book, index) {
     let bookItem = document.createElement("div");
         bookItem.className = "book";
         bookItem.dataset.index = index;
+        let container1 = document.createElement("div");
+        container1.className = "container-1";
+        let container2 = document.createElement("div");
+        container2.className = "container-2";
+
         let title = document.createElement("p");
         title.textContent = book.title;
+        title.className = "title";
         let author = document.createElement("p");
         author.textContent = book.author;
+        author.className = "author";
         let pages = document.createElement("p");
-        pages.textContent = book.pages;
+        pages.textContent = `${book.pages} pages`;
+        pages.className = "pages";
+        container1.appendChild(title);
+        container1.appendChild(author);
+        container1.appendChild(pages);
+
         let read;
         if (book.isRead === true) {
             read = document.createElement("button");
@@ -71,10 +81,19 @@ function createBookHtml(book, index) {
             read.textContent = "Not Read";
             read.className = "toggle btn btn-red";
         }
-        bookItem.appendChild(title);
-        bookItem.appendChild(author);
-        bookItem.appendChild(pages);
-        bookItem.appendChild(read);
+        let remove = document.createElement("button");
+        remove.className = "btn remove";
+        remove.textContent = "Remove";
+        container2.appendChild(read);
+        container2.appendChild(remove);
+
+        bookItem.appendChild(container1);
+        bookItem.appendChild(container2);
+        // bookItem.appendChild(title);
+        // bookItem.appendChild(author);
+        // bookItem.appendChild(pages);
+        // bookItem.appendChild(read);
+        // bookItem.appendChild(remove);
     return bookItem;
 }
 
@@ -98,12 +117,24 @@ function initializeReadButtons() {
     bookReadButtons.forEach(read => {
         read.addEventListener("click", () => {
             if(read.className === "toggle btn btn-green"){
-                myLibrary[read.parentNode.dataset.index].isRead = false;
+                myLibrary[read.parentNode.parentNode.dataset.index].isRead = false;
                 displayBooks();
             } else {
-                myLibrary[read.parentNode.dataset.index].isRead = true;
+                myLibrary[read.parentNode.parentNode.dataset.index].isRead = true;
                 displayBooks();
             }
+        });
+    });
+}
+
+function initializeRemoveButtons() {
+    let bookRemovalButtons = document.querySelectorAll('.remove');
+    bookRemovalButtons.forEach(remove => {
+        remove.addEventListener("click", () => {
+            console.log(remove.parentNode.parentNode.dataset.index);
+            myLibrary.splice(remove.parentNode.parentNode.dataset.index, 1);
+            remove.parentNode.parentNode.remove();
+            displayBooks();
         });
     });
 }
@@ -139,12 +170,6 @@ addBookForm.addEventListener("submit", () => {
     displayBooks();
 });
 
-
-
-
-
-
-
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
   modal.style.display = "none";
@@ -166,5 +191,7 @@ const getBookFromInput = () => {
     const isRead = document.getElementById('is-read').checked;
     return new MakeBook(title, author, pages, isRead);
 };
+
+
 
 
