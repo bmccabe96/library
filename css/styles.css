@@ -45,8 +45,14 @@ body {
     padding: 10px;
 }
 
+.book p {
+    margin: 10px 0;
+    text-align: center;
+}
+
 .btn {
-    color: white;
+    color: rgb(61, 34, 34);
+    background-color:white;
     border: 2px solid rgb(61, 34, 34);
     border-radius: 5px;
     width: 100px;
@@ -61,3 +67,57 @@ body {
     background-color: rgb(34, 129, 34);
 }
 
+
+
+
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    color: rgb(61, 34, 34);
+    background-color:white;
+    border: 2px solid rgb(61, 34, 34);
+    border-radius: 5px;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    width: 40%; /* Could be more or less, depending on screen size */
+  }
+
+  .modal form {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 20px;
+  }
+
+  .btn-holder {
+      text-align: center;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }

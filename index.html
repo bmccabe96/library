@@ -13,10 +13,32 @@
         <div class="heading">
             <h1>Library</h1>
         </div>
-        <button>Add Book</button>
+        <button id="add-btn" class="btn">Add Book</button>
         <div class="bookshelf">
             
             
+        </div>
+    </div>
+
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form method="post" id="add-book-form">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title"><br>
+                <label for="author">Author:</label>
+                <input type="text" id="author" name="author"><br>
+                <label for="pages">Pages:</label>
+                <input type="number" id="pages" name="pages" min="1"><br>
+                <label for="is-read">Have you read it?</label>
+                <input type="checkbox" id="is-read" name="is-read"><br>
+                <div class="btn-holder">
+                    <input type="submit" id="submit-book" class="btn" value="Add Book"></input>
+                </div>
+            </form>
         </div>
     </div>
     
