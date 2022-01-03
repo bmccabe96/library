@@ -1,6 +1,35 @@
 let myLibrary = [];
 
 
+
+
+/* 
+Constructor for book objects w/prototype method(s)
+*/
+// function MakeBook(title, author, pages, isRead=false) {
+//     this.title = title;
+//     this.author = author;
+//     this.pages = pages;
+//     this.isRead = isRead;
+// }
+
+// MakeBook.prototype.info = function () {
+//     return `${this.title} by ${this.author}, ${this.pages} pages, ${this.isRead === false ? 'not read yet' : 'already read'}`;
+// };
+
+/*CLASS METHOD
+Re-Formatting to use JS classes instead for an exercise
+*/
+class MakeBook {
+    constructor(title, author, pages, isRead=false) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.isRead = isRead;
+    }
+}
+
+
 //Add a couple books just to have it prepopulated. 
 //When I learn how to build login/authentication and how to hook up to a DB, I can add that portion
 let book1 = new MakeBook('The Fellowship of the Ring','JRR Tolkien',400,true);
@@ -10,20 +39,6 @@ addBookToLibrary(book1);
 addBookToLibrary(book2);
 addBookToLibrary(book3);
 displayBooks();
-
-/* 
-Constructor for book objects w/prototype method(s)
-*/
-function MakeBook(title, author, pages, isRead=false) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.isRead = isRead;
-}
-
-MakeBook.prototype.info = function () {
-    return `${this.title} by ${this.author}, ${this.pages} pages, ${this.isRead === false ? 'not read yet' : 'already read'}`;
-};
 
 
 /*
