@@ -108,7 +108,7 @@ function displayBooks() {
     const bookshelf = document.querySelector(".bookshelf");
     removeAllChildNodes(bookshelf);
     myLibrary.forEach((book, index) => {
-        bookItem = createBookHtml(book, index);
+        let bookItem = createBookHtml(book, index);
         bookshelf.appendChild(bookItem);
     });
     initializeReadButtons(); //need to check for read statuses on new call of displayBooks
